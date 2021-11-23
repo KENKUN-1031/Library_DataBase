@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Gluten:wght@200&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<!--		<link href="/templates/style.css" rel="stylesheet">-->
+		<title>todo.html</title>
+	</head>
+
+	<body>
+	       <h1 class="title">Library Server</h1>
+		   <br>
+			<form class="add" action="/add" method="POST">
+				<input type="text" name="todo" placeholder="input name"/>
+				<input type="text" name="book" placeholder="input book title"/>
+<!--				<label class="switch">-->
+<!--  					<input type="checkbox" name="returned" />-->
+<!--  					<span class="slider round"></span>-->
+<!--				</label>-->
+				<input type="submit" value="Add"/>
+			</form>
+		   <br>
+		   <form class="update" action ="/update" method="POST">
+				<input type="text" name="return" placeholder="input name">
+				<input type="text" name="return_book" placeholder="input book title">
+				<input type="submit" value="Return">
+			</form>
+			<br>
+		   <form class="delete" action ="/delete" method="POST">
+				<input type="text" name="delete" placeholder="input name">
+				<input type="text" name="delete_book" placeholder="input book title">
+				<input type="submit" value="Delete">
+			</form>
+		   <br>
+		   <form class="search" action ="/" method="GET">
+				<input type="text" name="search_name" placeholder="input name">
+				<input type="text" name="search_book" placeholder="input book title">
+			   	<input type="hidden" name="mode" value="search">
+				<input type="submit" value="Search">
+			</form>
+		   <br>
+		   <form class="search" action ="/" method="GET">
+				<input type="submit" value="Home">
+			</form>
+		   <br>
+
+		   {% for d in data %}
+
+		   <table class="total">
+			   <tr class="column">
+				   <th class="name">Name</th>
+				   <th class="book">Book</th>
+				   <th class="time">Time Borrowed</th>
+				   <th class="returned">Returned</th>
+				   <th class="returned_time">Returned Time</th>
+			   </tr>
+			   <tr class="data">
+				   <th class="data_name">{{d.todo}}</th>
+				   <th class="data_book">{{d.book}}</th>
+				   <th class="data_time">{{d.time}}</th>
+				   {%if d.returned == True%}
+				   <th class="data_returned">{{d.returned}}</th>
+				   {%else%}
+				   <th class="data_returned_f">{{d.returned}}</th>
+				   {% endif %}
+				   <th class="data_returned_time">{{d.returned_time}}</th>
+			   </tr>
+		   </table>
+
+		   {% endfor %}
+			<p>{{e}}</p>
+	</body>
+</html>
